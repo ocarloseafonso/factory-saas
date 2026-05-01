@@ -82,7 +82,7 @@ export default function MegaPromptOutput({
         <div className="mega-prompt-inner">
           <div
             ref={contentRef}
-            className="mega-prompt-text max-h-[600px] overflow-y-auto"
+            className="mega-prompt-text"
           >
             {content || 'Aguardando geração do mega-prompt...'}
           </div>

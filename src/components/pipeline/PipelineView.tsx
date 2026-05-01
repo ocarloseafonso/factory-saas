@@ -43,13 +43,13 @@ export default function PipelineView() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="pipeline-layout">
       <div className="ambient-bg" />
 
-      {/* Top Bar */}
-      <div className="sticky top-0 z-20 bg-[var(--color-bg-primary)] border-b border-[var(--color-border-subtle)] backdrop-blur-lg bg-opacity-90">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3 min-w-0">
+      {/* Top Navigation Bar */}
+      <header className="shrink-0 z-20 bg-[var(--color-bg-primary)] border-b border-[var(--color-border-subtle)] backdrop-blur-lg bg-opacity-90">
+        <div className="max-w-[1400px] mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-4 min-w-0">
             <button onClick={() => setView('landing')} className="btn-ghost p-2 shrink-0">
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -64,79 +64,88 @@ export default function PipelineView() {
               </p>
             </div>
           </div>
-          <button onClick={saveProject} className="btn-ghost text-xs shrink-0">
-            <Save className="w-3.5 h-3.5" />
-            Salvar
-          </button>
+          <div className="flex items-center gap-2">
+             <button onClick={saveProject} className="btn-ghost text-xs shrink-0">
+               <Save className="w-3.5 h-3.5" />
+               <span className="hidden sm:inline">Salvar</span>
+             </button>
+          </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Sidebar - Agent Progress */}
-          <PipelineProgress currentStep={currentStep} agentResults={agentResults} />
+      {/* Content Area with Independent Scrolls */}
+      <div className="pipeline-content-area flex-col lg:flex-row">
+        
+        {/* Sidebar - Agent Progress */}
+        <div className="scroll-area-sidebar border-b lg:border-b-0 lg:border-r border-[var(--color-border-subtle)]">
+          <div className="p-4">
+            <PipelineProgress currentStep={currentStep} agentResults={agentResults} />
+          </div>
+        </div>
 
-          {/* Main Area - Agent Cards */}
-          <div className="flex-1 space-y-4">
-            {AGENTS.map((agent, index) => {
-              const result = agentResults[index];
-              const isActive = index === currentStep;
-              const isVisible =
-                result.status !== 'pending' || index === currentStep;
+        {/* Main Area - Agent Cards */}
+        <div className="scroll-area-main">
+          <div className="content-container">
+            <div className="space-y-8 pb-20">
+              {AGENTS.map((agent, index) => {
+                const result = agentResults[index];
+                const isActive = index === currentStep;
+                const isVisible =
+                  result.status !== 'pending' || index === currentStep;
 
-              if (!isVisible) return null;
+                if (!isVisible) return null;
 
-              // For Leo (last agent), handle special approve
-              const onApprove =
-                agent.id === 'leo' ? handleLeoApprove : () => approveAndContinue(index);
+                // For Leo (last agent), handle special approve
+                const onApprove =
+                  agent.id === 'leo' ? handleLeoApprove : () => approveAndContinue(index);
 
-              return (
-                <AgentCard
-                  key={`${agent.id}-${result.version}`}
-                  result={result}
-                  stepIndex={index}
-                  isActive={isActive}
-                  onApprove={onApprove}
-                  onAdjust={(feedback) => adjustAgent(index, feedback)}
-                />
-              );
-            })}
+                return (
+                  <AgentCard
+                    key={`${agent.id}-${result.version}`}
+                    result={result}
+                    stepIndex={index}
+                    isActive={isActive}
+                    onApprove={onApprove}
+                    onAdjust={(feedback) => adjustAgent(index, feedback)}
+                  />
+                );
+              })}
 
-            {/* Mega Prompt Output */}
-            {allApproved && megaPromptContent && (
-              <div className="mt-6">
-                <MegaPromptOutput
-                  content={megaPromptContent}
-                  isComplete={megaPromptComplete}
-                  onContinue={async () => {
-                    await continueMegaPrompt();
-                  }}
-                  onSave={() => {
-                    if (!megaPromptComplete) {
-                      handleMarkComplete();
-                    }
-                    saveProject();
-                  }}
-                  onNewProject={resetPipeline}
-                />
+              {/* Mega Prompt Output */}
+              {allApproved && megaPromptContent && (
+                <div className="mt-8">
+                  <MegaPromptOutput
+                    content={megaPromptContent}
+                    isComplete={megaPromptComplete}
+                    onContinue={async () => {
+                      await continueMegaPrompt();
+                    }}
+                    onSave={() => {
+                      if (!megaPromptComplete) {
+                        handleMarkComplete();
+                      }
+                      saveProject();
+                    }}
+                    onNewProject={resetPipeline}
+                  />
 
-                {/* Mark as complete button */}
-                {!megaPromptComplete && megaPromptContent.length > 100 && (
-                  <div className="mt-4 text-center">
-                    <button
-                      onClick={handleMarkComplete}
-                      className="btn-success"
-                    >
-                      ✅ Marcar Mega-Prompt como Finalizado
-                    </button>
-                    <p className="text-xs text-[var(--color-text-muted)] mt-2">
-                      Clique quando o prompt estiver completo e pronto para uso
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
+                  {/* Mark as complete button */}
+                  {!megaPromptComplete && megaPromptContent.length > 100 && (
+                    <div className="mt-6 text-center">
+                      <button
+                        onClick={handleMarkComplete}
+                        className="btn-success"
+                      >
+                        ✅ Marcar Mega-Prompt como Finalizado
+                      </button>
+                      <p className="text-xs text-[var(--color-text-muted)] mt-2">
+                        Clique quando o prompt estiver completo e pronto para uso
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

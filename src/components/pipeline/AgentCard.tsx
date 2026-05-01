@@ -37,10 +37,10 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
     <div
       className={`glass-card overflow-hidden transition-all duration-500 animate-slide-in-up agent-border-${agent.id} ${
         isRunning ? `agent-glow-${agent.id}` : ''
-      }`}
+      } flex flex-col relative`}
     >
       {/* Header */}
-      <div className="flex items-center gap-4 p-5 border-b border-[var(--color-border-subtle)]">
+      <div className="flex items-center gap-4 p-5 lg:p-6 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-card)]">
         <div
           className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shrink-0 ${
             isRunning ? 'animate-pulse' : ''
@@ -115,7 +115,7 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
       {result.content && (
         <div
           ref={contentRef}
-          className="p-5 max-h-[500px] overflow-y-auto markdown-content"
+          className="p-5 lg:p-8 markdown-content"
         >
           <ReactMarkdown>{result.content}</ReactMarkdown>
           
@@ -136,9 +136,9 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
         </div>
       )}
 
-      {/* Actions */}
+      {/* Actions (Sticky to bottom) */}
       {isCompleted && !isApproved && (
-        <div className="p-5 border-t border-[var(--color-border-subtle)]">
+        <div className="sticky bottom-0 z-10 p-5 lg:p-6 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-card)] bg-opacity-95 backdrop-blur-md shadow-[0_-10px_30px_rgba(0,0,0,0.2)]">
           {!showFeedback ? (
             <div className="flex gap-3">
               <button onClick={onApprove} className="btn-success flex-1">

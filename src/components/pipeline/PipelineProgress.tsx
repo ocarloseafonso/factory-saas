@@ -9,8 +9,8 @@ interface PipelineProgressProps {
 
 export default function PipelineProgress({ currentStep, agentResults }: PipelineProgressProps) {
   return (
-    <div className="w-full lg:w-72 shrink-0">
-      <div className="glass-card p-4 lg:sticky lg:top-4">
+    <div className="w-full h-full">
+      <div className="p-2">
         <h3 className="text-sm font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-4 px-2">
           Equipe de Desenvolvimento
         </h3>
