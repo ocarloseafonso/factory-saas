@@ -40,7 +40,7 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
       } flex flex-col relative`}
     >
       {/* Header */}
-      <div className="flex items-center gap-4 p-5 lg:p-6 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-card)]">
+      <div className="flex items-center gap-3 sm:gap-5 p-6 sm:px-8 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-card)]">
         <div
           className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shrink-0 ${
             isRunning ? 'animate-pulse' : ''
@@ -89,9 +89,9 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
             }`}
           >
             <Zap className="w-3 h-3" />
-            <span className="hidden md:inline">{currentProvider.emoji} {currentProvider.name}</span>
-            <span className="md:hidden">{currentProvider.emoji}</span>
-            <span className={`text-[10px] px-1.5 py-0 rounded-full ${
+            <span className="hidden xl:inline">{currentProvider.emoji} {currentProvider.name}</span>
+            <span className="xl:hidden">{currentProvider.emoji}</span>
+            <span className={`text-[10px] px-1.5 py-0 rounded-full shrink-0 ${
               currentProvider.tier === 'free' ? 'bg-[var(--color-success)] text-white' : 'bg-[var(--color-warning)] text-[#1a1a2e]'
             }`}>
               {currentProvider.tier === 'free' ? 'GRÁTIS' : 'PAGO'}
@@ -115,9 +115,17 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
       {result.content && (
         <div
           ref={contentRef}
-          className="p-5 lg:p-8 markdown-content"
+          className="p-6 sm:px-8 md:px-12 py-8 markdown-content"
         >
-          <ReactMarkdown>{result.content}</ReactMarkdown>
+          <ReactMarkdown
+            components={{
+              a: ({ node, ...props }) => (
+                <a {...props} target="_blank" rel="noopener noreferrer" />
+              ),
+            }}
+          >
+            {result.content}
+          </ReactMarkdown>
           
           {isRunning && (
             <span className="inline-block w-2 h-5 bg-[var(--color-accent-blue)] animate-typing ml-1 align-middle" />
@@ -127,18 +135,17 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
 
       {/* Loading skeleton */}
       {isRunning && !result.content && (
-        <div className="p-5 space-y-3">
-          <div className="skeleton h-4 w-3/4" />
-          <div className="skeleton h-4 w-full" />
-          <div className="skeleton h-4 w-5/6" />
-          <div className="skeleton h-4 w-2/3" />
-          <div className="skeleton h-4 w-4/5" />
+        <div className="p-6 sm:px-8 md:px-12 py-8 space-y-4">
+          <div className="skeleton h-4 w-3/4 rounded-full" />
+          <div className="skeleton h-4 w-full rounded-full" />
+          <div className="skeleton h-4 w-5/6 rounded-full" />
+          <div className="skeleton h-4 w-2/3 rounded-full" />
         </div>
       )}
 
       {/* Actions (Sticky to bottom) */}
       {isCompleted && !isApproved && (
-        <div className="sticky bottom-0 z-10 p-5 lg:p-6 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-card)] bg-opacity-95 backdrop-blur-md shadow-[0_-10px_30px_rgba(0,0,0,0.2)]">
+        <div className="sticky bottom-0 z-10 p-6 sm:px-8 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-card)] bg-opacity-95 backdrop-blur-md shadow-[0_-10px_30px_rgba(0,0,0,0.2)]">
           {!showFeedback ? (
             <div className="flex gap-3">
               <button onClick={onApprove} className="btn-success flex-1">
@@ -199,9 +206,9 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
 
       {/* Approved indicator */}
       {isApproved && (
-        <div className="px-5 py-3 bg-[rgba(16,185,129,0.05)] border-t border-[rgba(16,185,129,0.2)] flex items-center gap-2">
-          <Check className="w-4 h-4 text-[var(--color-success)]" />
-          <span className="text-sm text-[var(--color-success)]">
+        <div className="px-6 sm:px-8 py-4 bg-[rgba(16,185,129,0.05)] border-t border-[rgba(16,185,129,0.2)] flex items-center gap-3">
+          <Check className="w-5 h-5 text-[var(--color-success)]" />
+          <span className="text-sm font-medium text-[var(--color-success)]">
             Aprovado pelo chefe — avançando para o próximo agente
           </span>
         </div>

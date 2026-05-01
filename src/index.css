@@ -4,7 +4,7 @@
 /*  SaaS Factory — Design System          */
 /* ═══════════════════════════════════════ */
 
-@theme {
+:root {
   /* Base colors — Deep Navy/Charcoal */
   --color-bg-primary: #0a0e1a;
   --color-bg-secondary: #111827;
@@ -59,13 +59,13 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   
-  /* Spacing Scale */
-  --spacing-xs: 0.25rem;  /* 4px */
-  --spacing-sm: 0.5rem;   /* 8px */
-  --spacing-md: 1rem;     /* 16px */
-  --spacing-lg: 1.5rem;   /* 24px */
-  --spacing-xl: 2rem;     /* 32px */
-  --spacing-2xl: 3rem;    /* 48px */
+  /* Custom Spacing Scale */
+  --sys-spacing-xs: 0.25rem;  /* 4px */
+  --sys-spacing-sm: 0.5rem;   /* 8px */
+  --sys-spacing-md: 1rem;     /* 16px */
+  --sys-spacing-lg: 1.5rem;   /* 24px */
+  --sys-spacing-xl: 2rem;     /* 32px */
+  --sys-spacing-2xl: 3rem;    /* 48px */
   
   /* Radii */
   --radius-sm: 0.5rem;    /* 8px */
@@ -160,12 +160,12 @@ body {
 .content-container {
   max-width: var(--max-w-content);
   margin: 0 auto;
-  padding: var(--spacing-md);
+  padding: var(--sys-spacing-md);
 }
 
 @media (min-width: 1024px) {
   .content-container {
-    padding: var(--spacing-lg) var(--spacing-xl);
+    padding: var(--sys-spacing-lg) var(--sys-spacing-xl);
   }
 }
 
