@@ -40,7 +40,7 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
       } flex flex-col relative`}
     >
       {/* Header */}
-      <div className="flex items-center gap-3 sm:gap-5 p-6 sm:px-8 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-card)]">
+      <div className="flex items-center gap-3 sm:gap-5 px-6 py-6 sm:px-8 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-card)]">
         <div
           className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shrink-0 ${
             isRunning ? 'animate-pulse' : ''
@@ -115,7 +115,7 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
       {result.content && (
         <div
           ref={contentRef}
-          className="p-6 sm:px-8 md:px-12 py-8 markdown-content"
+          className="px-6 py-8 sm:px-8 md:px-12 markdown-content"
         >
           <ReactMarkdown
             components={{
@@ -135,7 +135,7 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
 
       {/* Loading skeleton */}
       {isRunning && !result.content && (
-        <div className="p-6 sm:px-8 md:px-12 py-8 space-y-4">
+        <div className="px-6 py-8 sm:px-8 md:px-12 space-y-4">
           <div className="skeleton h-4 w-3/4 rounded-full" />
           <div className="skeleton h-4 w-full rounded-full" />
           <div className="skeleton h-4 w-5/6 rounded-full" />
@@ -145,7 +145,7 @@ export default function AgentCard({ result, stepIndex, isActive, onApprove, onAd
 
       {/* Actions (Sticky to bottom) */}
       {isCompleted && !isApproved && (
-        <div className="sticky bottom-0 z-10 p-6 sm:px-8 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-card)] bg-opacity-95 backdrop-blur-md shadow-[0_-10px_30px_rgba(0,0,0,0.2)]">
+        <div className="sticky bottom-0 z-10 px-6 py-6 sm:px-8 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-card)] bg-opacity-95 backdrop-blur-md shadow-[0_-10px_30px_rgba(0,0,0,0.2)]">
           {!showFeedback ? (
             <div className="flex gap-3">
               <button onClick={onApprove} className="btn-success flex-1">
