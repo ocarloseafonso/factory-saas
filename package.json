@@ -5,10 +5,10 @@
   "type": "module",
   "main": "electron.cjs",
   "scripts": {
-    "dev": "concurrently \"vite\" \"tsx watch server/index.ts\"",
-    "dev:frontend": "vite",
+    "dev": "concurrently \"vite --force\" \"tsx watch server/index.ts\"",
+    "dev:frontend": "vite --force",
     "dev:backend": "tsx watch server/index.ts",
-    "dev:desktop": "concurrently \"vite\" \"tsx watch server/index.ts\" \"electron .\"",
+    "dev:desktop": "concurrently \"vite --force\" \"tsx watch server/index.ts\" \"electron .\"",
     "build": "vite build",
     "build:desktop": "vite build && electron-builder --win",
     "lint": "eslint .",
