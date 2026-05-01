@@ -1,13 +1,13 @@
 @echo off
 chcp 65001 >nul
-title SaaS Factory — Enviar para GitHub
+title SaaS Factory - Enviar para GitHub
 color 0A
 
 echo.
-echo  ╔══════════════════════════════════════════╗
-echo  ║   SaaS Factory — Enviar para GitHub       ║
-echo  ║   Salvando alterações no repositório      ║
-echo  ╚══════════════════════════════════════════╝
+echo  ==========================================
+echo    SaaS Factory - Enviar para GitHub
+echo    Salvando alteracoes no repositorio
+echo  ==========================================
 echo.
 
 cd /d "%~dp0"
@@ -15,7 +15,7 @@ cd /d "%~dp0"
 :: Verifica se Git está instalado
 where git >nul 2>&1
 if %errorlevel% neq 0 (
-    echo  [ERRO] Git não encontrado!
+    echo  [ERRO] Git nao encontrado!
     echo  Instale em: https://git-scm.com/download/win
     echo.
     pause
@@ -25,16 +25,16 @@ if %errorlevel% neq 0 (
 :: Verifica se tem remote
 git remote -v >nul 2>&1
 if %errorlevel% neq 0 (
-    echo  [AVISO] Nenhum repositório remoto configurado.
+    echo  [AVISO] Nenhum repositorio remoto configurado.
     echo.
-    set /p REPO_URL="  Cole a URL do repositório GitHub: "
+    set /p REPO_URL="  Cole a URL do repositorio GitHub: "
     git remote add origin %REPO_URL%
-    echo  [OK] Repositório remoto adicionado!
+    echo  [OK] Repositorio remoto adicionado!
     echo.
 )
 
 :: Adiciona todas as alterações
-echo  [1/3] Adicionando alterações...
+echo  [1/3] Adicionando alteracoes...
 git add -A
 
 :: Pede mensagem de commit
@@ -57,8 +57,8 @@ if %errorlevel% neq 0 (
 )
 
 echo.
-echo  ╔══════════════════════════════════════════╗
-echo  ║   ✅ Enviado para GitHub com sucesso!     ║
-echo  ╚══════════════════════════════════════════╝
+echo  ==========================================
+echo    [OK] Enviado para GitHub com sucesso!
+echo  ==========================================
 echo.
 pause
